@@ -50,12 +50,14 @@ let colorPals = reColor(0,1)
 map.on('load', () => {
     const layers = map.getStyle().layers;
     const firstSymbolId = layers.find(layer => layer.type === "symbol")?.id;
+    // const firstSymbolId = layers.find(layer => layer.id.includes("road")).id;
 
     // Sources
     const sources = {
         lsoa: 'mapbox://cate525.b7ytwoco',
         msoa: 'mapbox://cate525.dlgdvnnw',
-        msoa_simple: 'mapbox://cate525.9dh5n7yg'
+        msoa_simple: 'mapbox://cate525.9dh5n7yg',
+        streets: "mapbox://mapbox.mapbox-streets-v8"
     };
 
     Object.entries(sources).forEach(([id, url]) => {
@@ -89,7 +91,8 @@ map.on('load', () => {
                 layout: { visibility: 'visible' },
                 paint: {
                     'fill-color': 
-                        ['rgb',['get', `div_wea_col_${globalMode}_180_r`],['get', `div_wea_col_${globalMode}_180_g`],['get', `div_wea_col_${globalMode}_180_b`]]
+                        ['rgba',['get', `div_wea_col_${globalMode}_180_r`],['get', `div_wea_col_${globalMode}_180_g`],['get', `div_wea_col_${globalMode}_180_b`],.8]
+                    
 
                 }
             }, firstSymbolId);
@@ -208,12 +211,14 @@ map.on('idle', () => {
             if (vmin === vmax) vmax += .01;
             colorPals = reColor(vmin,vmax)
         }
-        if (globalMetric === 'div_wea_col'){nextColor=['rgb',['get', `div_wea_col_${globalMode}_180_r`],['get', `div_wea_col_${globalMode}_180_g`],['get', `div_wea_col_${globalMode}_180_b`]]}
+        if (globalMetric === 'div_wea_col'){nextColor=['rgba',['get', `div_wea_col_${globalMode}_180_r`],['get', `div_wea_col_${globalMode}_180_g`],['get', `div_wea_col_${globalMode}_180_b`],.8]}
         else if(globalMetric === 'none'){nextColor='transparent'}
         else{nextColor = ['interpolate-hcl', ['linear'], ['get', `${globalMetric}_${globalMode}_180_rk`], ...colorPals[globalMetric]]};
         const scales = ['lsoa','msoa','msoa_simple'];
         scales.forEach(scale => {
             map.setPaintProperty(`${scale}`, 'fill-color', nextColor);
+            map.setPaintProperty(`${scale}`, 'fill-opacity', .8);
+
         });
     }
 
