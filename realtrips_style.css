@@ -1,0 +1,115 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+pre {
+    font-size: 8px;
+    position: absolute;
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Annotations */
+#annotation1, #annotation2, #annotation3, #annotation4 {
+    position: absolute;
+    text-align: center;
+}
+
+#annotation1 { top: 120px; right: 6px; }
+#annotation2 { top: 120px; right: 60px; }
+#annotation3, #annotation4 {
+    text-align: right;
+    right: 92px;
+}
+#annotation3 { top: 145px; }
+#annotation4 { top: 195px; }
+
+/* Grid Container */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 18px);
+    grid-template-rows: repeat(4, 18px);
+    position: absolute;
+    top: 150px;
+    right: 10px;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    z-index: 2;
+}
+
+.box {
+    border: 0 solid #000;
+    transition: background-color 0.3s ease;
+    opacity: 0.8;
+}
+
+/* Color Palette */
+#one { background-color: #f7f7f7; }
+#two { background-color: #cde6ee; }
+#three { background-color: #a2d5e5; }
+#four { background-color: #78c4dc; }
+#five { background-color: #f5c8c4; }
+#six { background-color: #d0b7cb; }
+#seven { background-color: #aba7d1; }
+#eight { background-color: #8596d8; }
+#nine { background-color: #f39991; }
+#ten { background-color: #d389a7; }
+#eleven { background-color: #b379bd; }
+#twelve { background-color: #9369d3; }
+#thirteen { background-color: #f1695e; }
+#fourteen { background-color: #d65a84; }
+#fifteen { background-color: #bc4ba9; }
+#sixteen { background-color: #a13bcf; }
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Common Menu Styles */
+.menu {
+    background: #fff;
+    position: absolute;
+    z-index: 1;
+    border-radius: 3px;
+    width: 75px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    font-family: 'Open Sans', sans-serif;
+}
+
+.menu a {
+    font-size: 13px;
+    color: #404040;
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+.menu a:last-child {
+    border: none;
+}
+
+.menu a:hover {
+    background-color: #f8f8f8;
+    color: #404040;
+}
+
+.menu a.active {
+    background-color: #868682;
+    color: #ffffff;
+}
+
+#scaling_menu { top: 10px; right: 190px; }
+#mode_menu { top: 10px; right: 10px; }
+#metric_menu { top: 10px; right: 100px; }
+
+#scaling_menu #relative.active:hover {
+    background-color: #3A3B3C;
+    color: #ffffff;
+}
+
