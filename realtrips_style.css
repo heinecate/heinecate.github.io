@@ -1,13 +1,19 @@
+@font-face {
+  font-family: 'Aeonik'; /* Name your font family */
+  src: url('/Users/cateheine/Documents/spiral_songs/colab_folder/fonts/AeonikPro-Light.otf'); /* Locate the .ttf file within your directory*/
+}
+
 body {
     margin: 0;
     padding: 0;
 }
 
 pre {
-    font-size: 8px;
+    font-size: 10px;
     position: absolute;
     z-index: 2;
     background-color: rgba(255, 255, 255, 0.5);
+    font-family: 'Aeonik';
 }
 
 /* Annotations */
@@ -16,11 +22,11 @@ pre {
     text-align: center;
 }
 
-#annotation1 { top: 120px; right: 6px; }
-#annotation2 { top: 120px; right: 60px; }
+#annotation1 { top: 115px; right: 6px; }
+#annotation2 { top: 115px; right: 60px; }
 #annotation3, #annotation4 {
     text-align: right;
-    right: 92px;
+    right: 88px;
 }
 #annotation3 { top: 145px; }
 #annotation4 { top: 195px; }
@@ -82,6 +88,7 @@ pre {
 
 .menu a {
     font-size: 13px;
+    font-family: 'Aeonik';
     color: #404040;
     display: block;
     padding: 10px;

@@ -3,7 +3,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiY2F0ZTUyNSIsImEiOiJjbTZoc3drbnEwMTV2MmtwZnRwM
 const map = new mapboxgl.Map({
     container: 'map',
     minZoom: 7,
-    style: 'mapbox://styles/cate525/cm6qmdg8c00y101qrcicu5v4e',
+    style: 'mapbox://styles/mapbox/light-v11',
     center: [-1.388365, 53.055032],
     zoom: 6.13
 });
@@ -49,7 +49,7 @@ let colorPals = reColor(0,1)
 
 map.on('load', () => {
     const layers = map.getStyle().layers;
-    const firstSymbolId = layers.find(layer => layer.id.includes("road")).id;
+    const firstSymbolId = layers.find(layer => layer.type === "symbol")?.id;
 
     // Sources
     const sources = {
