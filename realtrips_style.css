@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Aeonik'; /* Name your font family */
-  src: url('/Users/cateheine/Documents/spiral_songs/colab_folder/fonts/AeonikPro-Light.otf'); /* Locate the .ttf file within your directory*/
+  src: url('AeonikPro-Light.otf'); /* Locate the .ttf file within your directory*/
 }
 
 body {
