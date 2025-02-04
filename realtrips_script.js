@@ -91,7 +91,8 @@ map.on('load', () => {
                 layout: { visibility: 'visible' },
                 paint: {
                     'fill-color': 
-                        ['rgba',['get', `div_wea_col_${globalMode}_180_r`],['get', `div_wea_col_${globalMode}_180_g`],['get', `div_wea_col_${globalMode}_180_b`],.8]
+                        ['rgb',['get', `div_wea_col_${globalMode}_180_r`],['get', `div_wea_col_${globalMode}_180_g`],['get', `div_wea_col_${globalMode}_180_b`]],
+                    'fill-opacity':.8
                     
 
                 }
@@ -211,7 +212,7 @@ map.on('idle', () => {
             if (vmin === vmax) vmax += .01;
             colorPals = reColor(vmin,vmax)
         }
-        if (globalMetric === 'div_wea_col'){nextColor=['rgba',['get', `div_wea_col_${globalMode}_180_r`],['get', `div_wea_col_${globalMode}_180_g`],['get', `div_wea_col_${globalMode}_180_b`],.8]}
+        if (globalMetric === 'div_wea_col'){nextColor=['rgb',['get', `div_wea_col_${globalMode}_180_r`],['get', `div_wea_col_${globalMode}_180_g`],['get', `div_wea_col_${globalMode}_180_b`]]}
         else if(globalMetric === 'none'){nextColor='transparent'}
         else{nextColor = ['interpolate-hcl', ['linear'], ['get', `${globalMetric}_${globalMode}_180_rk`], ...colorPals[globalMetric]]};
         const scales = ['lsoa','msoa','msoa_simple'];
