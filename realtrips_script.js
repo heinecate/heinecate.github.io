@@ -173,9 +173,10 @@ map.on('idle', () => {
             if (activeWea && activeDiv) {
                 globalMetric = 'div_wea_col';
                 document.getElementById('scaling_menu').style.opacity = .2;
+
                 var slideritems = document.getElementsByClassName('slider-container');
                 for(i=0; i<slideritems.length; i++) {
-                  slideritems[i].style.opacity = .2;
+                    slideritems[i].style.opacity = .2;
                 }
                 document.querySelectorAll('.box,.w,.d').forEach(box => box.style.opacity = 1);
             } else if (activeWea) {
@@ -186,7 +187,7 @@ map.on('idle', () => {
                   slideritems[i].style.opacity = 1;
                 }
                 document.querySelectorAll('.w').forEach(box => box.style.opacity = 1);
-                document.querySelectorAll('.box:not(.w),.d:not(.w)').forEach(box => box.style.opacity = 0.25);
+                document.querySelectorAll('.box:not(.w),.d:not(.w)').forEach(box => box.style.opacity = 0.2);
             } else if (activeDiv) {
                 globalMetric = 'ent_inc';
                 document.getElementById('scaling_menu').style.opacity = 1;
@@ -195,7 +196,7 @@ map.on('idle', () => {
                   slideritems[i].style.opacity = 1;
                 }
                 document.querySelectorAll('.d').forEach(box => box.style.opacity = 1);
-                document.querySelectorAll('.box:not(.d),.w:not(.d)').forEach(box => box.style.opacity = 0.25);
+                document.querySelectorAll('.box:not(.d),.w:not(.d)').forEach(box => box.style.opacity = 0.2);
             } else {
                 globalMetric = 'none';
                 document.getElementById('scaling_menu').style.opacity = .2;
@@ -203,7 +204,7 @@ map.on('idle', () => {
                 for(i=0; i<slideritems.length; i++) {
                   slideritems[i].style.opacity = .2;
                 }
-                document.querySelectorAll('.box,.w,.d').forEach(box => box.style.opacity = 0.25);
+                document.querySelectorAll('.box,.w,.d').forEach(box => box.style.opacity = 0.2);
             }
 
             
