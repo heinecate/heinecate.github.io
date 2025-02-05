@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'Aeonik'; /* Name your font family */
-  src: url('AeonikPro-Light.otf'); /* Locate the .ttf file within your directory*/
+  font-family: 'Aeonik';
+  src: url('AeonikPro-Light.otf');
 }
 
 body {
@@ -16,7 +16,6 @@ pre {
     font-family: 'Aeonik';
 }
 
-/* Annotations */
 #annotation1, #annotation2, #annotation3, #annotation4 {
     position: absolute;
     text-align: center;
@@ -31,7 +30,6 @@ pre {
 #annotation3 { top: 145px; }
 #annotation4 { top: 195px; }
 
-/* Grid Container */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(4, 18px);
@@ -50,7 +48,6 @@ pre {
     opacity: 0.8;
 }
 
-/* Color Palette */
 #one { background-color: #f7f7f7; }
 #two { background-color: #cde6ee; }
 #three { background-color: #a2d5e5; }
@@ -73,9 +70,9 @@ pre {
     top: 0;
     bottom: 0;
     width: 100%;
+    z-index: -2;
 }
 
-/* Common Menu Styles */
 .menu {
     background: #fff;
     position: absolute;
@@ -111,12 +108,91 @@ pre {
     color: #ffffff;
 }
 
-#scaling_menu { top: 10px; right: 190px; }
+
 #mode_menu { top: 10px; right: 10px; }
+
 #metric_menu { top: 10px; right: 100px; }
 
-#scaling_menu #relative.active:hover {
-    background-color: #3A3B3C;
-    color: #ffffff;
+#scaling_menu { 
+    top: 285px; 
+    right: 10px;
+    width: 60px;
+    opacity: .2;
 }
 
+#scaling_menu a { 
+    color: #404040;
+    font-size:10px;
+    padding: 5px;
+}
+
+#scaling_menu a:hover { 
+    background-color: #868682; /* Removed quotes */
+    color: #ffffff;
+    font-size:10px;
+}
+
+
+
+.slider-container {
+    position: absolute;
+    width: 120px;
+    height: 40px;
+    right: 20px;
+    top: 250px;
+    opacity: .2;
+}
+.slider {
+    position: absolute;
+    width: 100%;
+    pointer-events: none;
+    appearance: none;
+    height: 5px;
+    background: transparent;
+}
+.slider::-webkit-slider-thumb {
+    pointer-events: all;
+    appearance: none;
+    width: 5px;
+    height: 15px;
+    background: #868682;
+    z-index: 2;
+    cursor: pointer;
+}
+
+#base-track {
+    position: absolute;
+    width: 100%;  /* Add a width so it's visible */
+    height: 5px;
+    left:2%;
+    background: #d3d3d3;
+    z-index: -1;
+    top: 4%;
+    border-radius: 5px;
+}
+#minLabel {
+    position: absolute;
+    top: 10%;
+    left:0%;
+    text-align:left;
+    font-size:12px;
+    font-family:'Aeonik';
+}
+
+#maxLabel {
+    position: absolute;
+    top: 10%;
+    right:0%;
+    text-align:right;
+    font-size:12px;
+    font-family:'Aeonik';
+}
+
+.range-track {
+    position: absolute;
+    height: 5px;
+    background: #868682;
+    z-index: 2;
+    top: 4%;
+    border-radius: 5px;
+}

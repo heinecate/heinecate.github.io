@@ -1,4 +1,8 @@
+    
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiY2F0ZTUyNSIsImEiOiJjbTZoc3drbnEwMTV2MmtwZnRwM2V4dHpoIn0.EHPHcqnoXFCNpcQYlqAObA';
+
+
 
 const map = new mapboxgl.Map({
     container: 'map',
@@ -103,7 +107,6 @@ map.on('load', () => {
 
 
 
-
 map.on('idle', () => {
     const readable = {
         relative: 'Rescale to frame',
@@ -118,7 +121,7 @@ map.on('idle', () => {
 
     
     
-    const toggleableScalings = ['absolute', 'relative'];
+    const toggleableScalings = ['relative'];
     const toggleableLayerGrps = ['pt', 'bi', 'dr'];
     const toggleableMetrics = ['wea', 'div'];
 
@@ -131,7 +134,7 @@ map.on('idle', () => {
 
         link.href = '#';
         link.textContent = readable[id] || id;
-        if((id===globalMode)|(id===globalMetric)|(id==='absolute')){link.className = 'active';}else{link.className = defaultClass;}
+        if((id===globalMode)|(id===globalMetric)){link.className = 'active';}else{link.className = defaultClass;}
         link.onclick = callback;
 
         document.getElementById(menuId).appendChild(link);
@@ -139,12 +142,7 @@ map.on('idle', () => {
 
     // Scaling Toggle
     toggleableScalings.forEach(id => {
-        createToggleButton(id, 'scaling_menu', function () {
-            toggleableScalings.forEach(otherId => {
-                document.getElementById(otherId).className = otherId === id ? 'active' : '';
-            });
-            if (id === 'absolute'){colorPals = reColor(0,1)}
-        });
+        createToggleButton(id, 'scaling_menu');
     });
 
 
@@ -174,17 +172,37 @@ map.on('idle', () => {
 
             if (activeWea && activeDiv) {
                 globalMetric = 'div_wea_col';
+                document.getElementById('scaling_menu').style.opacity = .2;
+                var slideritems = document.getElementsByClassName('slider-container');
+                for(i=0; i<slideritems.length; i++) {
+                  slideritems[i].style.opacity = .2;
+                }
                 document.querySelectorAll('.box,.w,.d').forEach(box => box.style.opacity = 1);
             } else if (activeWea) {
                 globalMetric = 'cum_AB';
+                document.getElementById('scaling_menu').style.opacity = 1;
+                var slideritems = document.getElementsByClassName('slider-container');
+                for(i=0; i<slideritems.length; i++) {
+                  slideritems[i].style.opacity = 1;
+                }
                 document.querySelectorAll('.w').forEach(box => box.style.opacity = 1);
                 document.querySelectorAll('.box:not(.w),.d:not(.w)').forEach(box => box.style.opacity = 0.25);
             } else if (activeDiv) {
                 globalMetric = 'ent_inc';
+                document.getElementById('scaling_menu').style.opacity = 1;
+                var slideritems = document.getElementsByClassName('slider-container');
+                for(i=0; i<slideritems.length; i++) {
+                  slideritems[i].style.opacity = 1;
+                }
                 document.querySelectorAll('.d').forEach(box => box.style.opacity = 1);
                 document.querySelectorAll('.box:not(.d),.w:not(.d)').forEach(box => box.style.opacity = 0.25);
             } else {
                 globalMetric = 'none';
+                document.getElementById('scaling_menu').style.opacity = .2;
+                var slideritems = document.getElementsByClassName('slider-container');
+                for(i=0; i<slideritems.length; i++) {
+                  slideritems[i].style.opacity = .2;
+                }
                 document.querySelectorAll('.box,.w,.d').forEach(box => box.style.opacity = 0.25);
             }
 
@@ -202,16 +220,10 @@ map.on('idle', () => {
     // Function for both button A and B
     function clickRerender(event) {
         let nextColor;
-        if (document.getElementById('relative').className==='active'){
-            const visibleFeatures = map.queryRenderedFeatures({ layers: ['lsoa','msoa','msoa_simple'] });
-            if (visibleFeatures.length === 0) return;
-
-            const values = visibleFeatures.map(f => f.properties[`${globalMetric}_${globalMode}_180_rk`]);
-            vmin = d3.quantile(values,.01);
-            vmax = d3.quantile(values,.99);
-            if (vmin === vmax) vmax += .01;
-            colorPals = reColor(vmin,vmax)
-        }
+        vmin = round(minRange.value/100,2);
+        vmax = round(maxRange.value/100,2);
+        colorPals = reColor(vmin,vmax)
+        
         if (globalMetric === 'div_wea_col'){nextColor=['rgb',['get', `div_wea_col_${globalMode}_180_r`],['get', `div_wea_col_${globalMode}_180_g`],['get', `div_wea_col_${globalMode}_180_b`]]}
         else if(globalMetric === 'none'){nextColor='transparent'}
         else{nextColor = ['interpolate-hcl', ['linear'], ['get', `${globalMetric}_${globalMode}_180_rk`], ...colorPals[globalMetric]]};
@@ -223,10 +235,76 @@ map.on('idle', () => {
         });
     }
 
+        // Function for both button A and B
+    function clickRerender_fitframe(event) {
+        const visibleFeatures = map.queryRenderedFeatures({ layers: ['lsoa','msoa','msoa_simple'] });
+        if (visibleFeatures.length === 0) return;
+
+        const values = visibleFeatures.map(f => f.properties[`${globalMetric}_${globalMode}_180_rk`]);
+        minRange.value = d3.quantile(values,.01)*100;
+        maxRange.value = d3.quantile(values,.99)*100;
+
+        clickRerender(event)
+    }
+
     // Attach event listeners
     modeMenu.addEventListener("click", clickRerender);
-    scalingMenu.addEventListener("click", clickRerender);
+    scalingMenu.addEventListener("click", clickRerender_fitframe);
     metricMenu.addEventListener("click", clickRerender);
 
+
+    const minRange = document.getElementById("minRange");
+    const maxRange = document.getElementById("maxRange");
+    const rangeTrack = document.getElementById("rangeTrack");
+    const minValueText = document.getElementById("minValue");
+    const maxValueText = document.getElementById("maxValue");
+    const minGap = .1; // Minimum gap between sliders
+
+    function round(num, places) {
+        var multiplier = Math.pow(10, places);
+        return Math.round(num * multiplier) / multiplier;
+    }
+    function updateSlider(event) {
+        let minVal = round(minRange.value,2);
+        let maxVal = round(maxRange.value,2);
+
+        // Ensure min is always less than max
+        if (maxVal - minVal < .01) {
+            if (event.target === minRange) {
+                minRange.value = maxVal - minGap;
+            } else {
+                maxRange.value = minVal + minGap;
+            }
+            minVal = (minRange.value);
+            maxVal = (maxRange.value);
+        }
+
+        // Update the display values
+        minValueText.textContent = minVal;
+        maxValueText.textContent = maxVal;
+
+        // Update the track fill position
+        let percentMin = (minVal / 100) * 100;
+        let percentMax = (maxVal / 100) * 100;
+
+        vmin = minVal/100
+        vmax = maxVal/100
+        console.log(minVal/100)
+        console.log(maxVal/100)
+        rangeTrack.style.left = (percentMin+2) + "%";
+        rangeTrack.style.width = (percentMax - percentMin)  + "%";
+    }
+
+    minRange.addEventListener("input", updateSlider);
+    maxRange.addEventListener("input", updateSlider);
+    minRange.addEventListener("input", clickRerender);
+    maxRange.addEventListener("input", clickRerender);
+
+    // Initialize the slider positions
+    updateSlider(new Event("input"));
+
+
+
 });
+
 
