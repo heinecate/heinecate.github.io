@@ -1,0 +1,198 @@
+@font-face {
+  font-family: 'Aeonik';
+  src: url('AeonikPro-Light.otf');
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+pre {
+    font-size: 10px;
+    position: absolute;
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.5);
+    font-family: 'Aeonik';
+}
+
+#annotation1, #annotation2, #annotation3, #annotation4 {
+    position: absolute;
+    text-align: center;
+}
+
+#annotation1 { top: 115px; right: 6px; }
+#annotation2 { top: 115px; right: 60px; }
+#annotation3, #annotation4 {
+    text-align: right;
+    right: 88px;
+}
+#annotation3 { top: 145px; }
+#annotation4 { top: 195px; }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 18px);
+    grid-template-rows: repeat(4, 18px);
+    position: absolute;
+    top: 150px;
+    right: 10px;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    z-index: 2;
+}
+
+.box {
+    border: 0 solid #000;
+    transition: background-color 0.3s ease;
+    opacity: 0.8;
+}
+
+#one { background-color: #f7f7f7; }
+#two { background-color: #cde6ee; }
+#three { background-color: #a2d5e5; }
+#four { background-color: #78c4dc; }
+#five { background-color: #f5c8c4; }
+#six { background-color: #d0b7cb; }
+#seven { background-color: #aba7d1; }
+#eight { background-color: #8596d8; }
+#nine { background-color: #f39991; }
+#ten { background-color: #d389a7; }
+#eleven { background-color: #b379bd; }
+#twelve { background-color: #9369d3; }
+#thirteen { background-color: #f1695e; }
+#fourteen { background-color: #d65a84; }
+#fifteen { background-color: #bc4ba9; }
+#sixteen { background-color: #a13bcf; }
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: -2;
+}
+
+.menu {
+    background: #fff;
+    position: absolute;
+    z-index: 1;
+    border-radius: 3px;
+    width: 75px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    font-family: 'Open Sans', sans-serif;
+}
+
+.menu a {
+    font-size: 13px;
+    font-family: 'Aeonik';
+    color: #404040;
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+.menu a:last-child {
+    border: none;
+}
+
+.menu a:hover {
+    background-color: #f8f8f8;
+    color: #404040;
+}
+
+.menu a.active {
+    background-color: #868682;
+    color: #ffffff;
+}
+
+
+#mode_menu { top: 10px; right: 10px; }
+
+#metric_menu { top: 10px; right: 100px; }
+
+#scaling_menu { 
+    top: 285px; 
+    right: 10px;
+    width: 90px;
+    opacity: .2;
+}
+
+#scaling_menu a { 
+    color: #404040;
+    font-size:10px;
+    padding: 5px;
+}
+
+#scaling_menu a:hover { 
+    background-color: #868682; /* Removed quotes */
+    color: #ffffff;
+    font-size:10px;
+}
+
+
+
+.slider-container {
+    position: absolute;
+    width: 120px;
+    height: 40px;
+    right: 20px;
+    top: 250px;
+    opacity: .2;
+}
+.slider {
+    position: absolute;
+    width: 100%;
+    pointer-events: none;
+    appearance: none;
+    height: 5px;
+    background: transparent;
+}
+.slider::-webkit-slider-thumb {
+    pointer-events: all;
+    appearance: none;
+    width: 5px;
+    height: 15px;
+    background: #868682;
+    z-index: 2;
+    cursor: pointer;
+}
+
+#base-track {
+    position: absolute;
+    width: 100%;  /* Add a width so it's visible */
+    height: 5px;
+    left:2%;
+    background: #d3d3d3;
+    z-index: -1;
+    top: 4%;
+    border-radius: 5px;
+}
+#minLabel {
+    position: absolute;
+    top: 10%;
+    left:0%;
+    text-align:left;
+    font-size:12px;
+    font-family:'Aeonik';
+}
+
+#maxLabel {
+    position: absolute;
+    top: 10%;
+    right:0%;
+    text-align:right;
+    font-size:12px;
+    font-family:'Aeonik';
+}
+
+.range-track {
+    position: absolute;
+    height: 5px;
+    background: #868682;
+    z-index: 2;
+    top: 4%;
+    border-radius: 5px;
+}
